@@ -8,6 +8,7 @@ const { bytecode } = require('../compile');
 let accounts;
 let inbox;
 
+
 beforeEach(async () => {
     //Get a list of all accounts
     accounts = await web3.eth.getAccounts() //wait for account to be done
@@ -22,7 +23,13 @@ beforeEach(async () => {
 
 describe('Inbox', () => {
     it('deploys a contract', () => {
-        console.log(inbox);
+        assert.ok(inbox.options.address);
+    });
+
+    it('has a default message', async () => {
+        const message = await inbox.methods.message().call();
+        //reference contact (inbox).Property(methods).method name(message())
+        assert.equal(message, 'Hi there!');
     });
 });
 
